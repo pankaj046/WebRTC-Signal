@@ -25,3 +25,12 @@ wss.on('connection', (ws) => {
         console.log(`Client disconnected. Total connected clients: ${wss.clients.size}`)
     }
 });
+
+wss.on('send-message', (ws) => {    
+    ws.onmessage = (message) => {
+        wss.broadcast(ws, message.data);
+    }
+    ws.onclose = () => {
+        console.log(`Client disconnected. Total connected clients: ${wss.clients.size}`)
+    }
+});
